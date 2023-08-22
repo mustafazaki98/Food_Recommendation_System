@@ -6,3 +6,4 @@ compiled/
 \#*
 .\#*
 data
+models/ease_model.pkl

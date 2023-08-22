@@ -2,21 +2,21 @@ import numpy as np
 import pandas as pd
 import math
 
+import pandas as pd
+
 class BinaryNormalizer:
     """
     A class for binary normalization of purchase data.
 
     Parameters:
     -----------
-    file_path : str
-        The path to the raw purchase data file.
+    data_df : pandas.DataFrame
+        The raw purchase data containing 'user_id' and 'food_id' columns.
 
     Attributes:
     -----------
     raw_df : pandas.DataFrame
         The raw purchase data.
-    names : pandas.DataFrame
-        The name of each food item.
     purchase_count : numpy.ndarray
         The binary-normalized purchase data.
     """
@@ -27,20 +27,12 @@ class BinaryNormalizer:
 
         Parameters:
         -----------
-        file_path : (str)
-            The path to the raw purchase data file.
+        data_df : (pandas.DataFrame)
+            The raw purchase data.
         """
-        # self.file_path = file_path
-        self.data_collection()
+        self.raw_df = pd.read_csv('/Users/jayadeepneerubavi/Downloads/Food_Recommendation_System/data/raw_data/final_user_data.csv', usecols=['user_id', 'food_id'], dtype={'food_id': 'object'})
 
-    def data_collection(self):
-        """
-        Load the raw purchase data and food names from file.
-        """
-
-        self.raw_df = pd.read_csv('//Users/mustafazaki/Downloads/Food Recommendation System/preprocessing/new_user_data.csv', usecols=['user_id', 'food_id'])
-        # self.raw_df = pd.read_csv('/Users/mustafazaki/Downloads/Food Recommendation System/data/raw data/recommender_data 1.csv', usecols=['user_id', 'food_id'])
-        self.names = pd.read_csv('/Users/mustafazaki/Downloads/Food Recommendation System/data/preprocessed data/products.csv')
+        # self.raw_df = data_df
 
     def fit_transform(self):
         """
@@ -54,27 +46,89 @@ class BinaryNormalizer:
         df = self.raw_df.dropna()
 
         # Aggregate purchase data by user and food item.
-        df = df.assign(count=df.groupby(['food_id', 'user_id'])['user_id'].transform('count'))
-        df.drop_duplicates(keep='first', inplace=True)
+        df = df.assign(count=1)
         df = df.groupby(['user_id', 'food_id'], as_index=False).agg({'count': 'sum'})
 
         # Convert purchase counts to binary values.
         df['count'] = df['count'].astype(bool).astype(int)
 
-        # Merge with food item names and sort by purchase count.
-        merged_df = pd.merge(df, self.names, how="inner", left_on="food_id", right_on="ID")
-        merged_df.sort_values(by='count', ascending=False, inplace=True)
+        return df
 
-        # # Convert purchase data to user-item matrix.
-        # user_item_matrix = merged_df.pivot(index='user_id', columns='food_id', values='count')
-        # user_item_matrix = user_item_matrix.fillna(0)
-        #
-        # # Convert user-item matrix to numpy array and calculate sparsity.
-        # self.purchase_count = user_item_matrix.values
-        # sparsity = 100 - (np.count_nonzero(self.purchase_count) / (self.purchase_count.shape[0] * self.purchase_count.shape[1])) * 100
-        # print('\nSparsity: {:.2f}%'.format(sparsity))
 
-        return merged_df, self.names
+
+# class BinaryNormalizer:
+#     """
+#     A class for binary normalization of purchase data.
+#
+#     Parameters:
+#     -----------
+#     file_path : str
+#         The path to the raw purchase data file.
+#
+#     Attributes:
+#     -----------
+#     raw_df : pandas.DataFrame
+#         The raw purchase data.
+#     names : pandas.DataFrame
+#         The name of each food item.
+#     purchase_count : numpy.ndarray
+#         The binary-normalized purchase data.
+#     """
+#
+#     def __init__(self):
+#         """
+#         Initialize the BinaryNormalizer class.
+#
+#         Parameters:
+#         -----------
+#         file_path : (str)
+#             The path to the raw purchase data file.
+#         """
+#         # self.file_path = file_path
+#         self.data_collection()
+#
+#     def data_collection(self):
+#         """
+#         Load the raw purchase data and food names from file.
+#         """
+#
+#         self.raw_df = pd.read_csv('/Users/jayadeepneerubavi/Downloads/Food_Recommendation_System/preprocessing/final_user_data.csv', usecols=['user_id', 'food_id'], dtype={'most_similar_food_id': 'object'})
+#         # self.raw_df = pd.read_csv('/Users/mustafazaki/Downloads/Food Recommendation System/data/raw data/recommender_data 1.csv', usecols=['user_id', 'food_id'])
+#         # self.names = pd.read_csv('/Users/mustafazaki/Downloads/Food Recommendation System/data/preprocessed data/products.csv')
+#
+#     def fit_transform(self):
+#         """
+#         Perform binary normalization on the purchase data.
+#
+#         Returns:
+#         --------
+#         purchase_count : numpy.ndarray
+#             The binary-normalized purchase data.
+#         """
+#         df = self.raw_df.dropna()
+#
+#         # Aggregate purchase data by user and food item.
+#         df = df.assign(count=df.groupby(['food_id', 'user_id'])['user_id'].transform('count'))
+#         df.drop_duplicates(keep='first', inplace=True)
+#         df = df.groupby(['user_id', 'food_id'], as_index=False).agg({'count': 'sum'})
+#
+#         # Convert purchase counts to binary values.
+#         df['count'] = df['count'].astype(bool).astype(int)
+#
+#         # Merge with food item names and sort by purchase count.
+#         # merged_df = pd.merge(df, self.names, how="inner", left_on="food_id", right_on="ID")
+#         # merged_df.sort_values(by='count', ascending=False, inplace=True)
+#
+#         # # Convert purchase data to user-item matrix.
+#         # user_item_matrix = merged_df.pivot(index='user_id', columns='food_id', values='count')
+#         # user_item_matrix = user_item_matrix.fillna(0)
+#         #
+#         # # Convert user-item matrix to numpy array and calculate sparsity.
+#         # self.purchase_count = user_item_matrix.values
+#         # sparsity = 100 - (np.count_nonzero(self.purchase_count) / (self.purchase_count.shape[0] * self.purchase_count.shape[1])) * 100
+#         # print('\nSparsity: {:.2f}%'.format(sparsity))
+#
+#         return df
 
 class UnderSampler:
     def __init__(self, file_path='/Users/mustafazaki/Downloads/Food Recommendation System/data/raw data'):
