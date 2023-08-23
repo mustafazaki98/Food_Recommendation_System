@@ -2,7 +2,7 @@
 
 In an era where personal well-being and nutrition are pivotal, the need for personalized and healthy food recommendations is more important than ever. This system not only caters to individual taste preferences but also ensures that the recommendations align with healthier choices.
 
-This repository contains the [data](https://drive.google.com/drive/folders/18Hr6MFPINIqf1huRtZ5L-14fYyzxKRTM?usp=drive_link) code needed for a robust healthy food recommendation system. It analyzes users' meal descriptions to provide personalized recommendations, calculates health scores, and clusters food items to provide nutritious alternatives.
+This repository contains the [data](https://drive.google.com/drive/folders/18Hr6MFPINIqf1huRtZ5L-14fYyzxKRTM?usp=drive_link) and the code needed for a robust healthy food recommendation system. It analyzes users' meal descriptions to provide personalized recommendations, calculates health scores, and clusters food items to provide nutritious alternatives.
 
 ## 🚀 Workflow
 
