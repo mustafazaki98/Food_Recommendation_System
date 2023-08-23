@@ -4,6 +4,36 @@ In an era where personal well-being and nutrition are pivotal, the need for pers
 
 This repository contains the [data](https://drive.google.com/drive/folders/18Hr6MFPINIqf1huRtZ5L-14fYyzxKRTM?usp=drive_link) and the code needed for a robust healthy food recommendation system. It analyzes users' meal descriptions to provide personalized recommendations, calculates health scores, and clusters food items to provide nutritious alternatives.
 
+## 📂 Directory Structure
+
+<pre>
+main/
+│   ├── healthy_recommender.py       # Main file combining all parts and providing healthy alternatives
+│   └── healthy_alternatives.json    # Healthy alternatives for each recommended food item
+│
+data/
+│   ├── preprocessed data/
+│   │   ├── Final Health Scores No Outliers Linear.csv   # Normalized health scores for each food item
+│   │   ├── food_nutrients_transformed.csv               # After nutrient preprocessing, adding nutrient columns
+│   │   ├── foodClusters.pickle                         # Clusters of similar food items
+│   │   └── foodVectors.pickle                          # Embeddings of food items using BERT
+│   │
+│   └── raw data/
+│       ├── final_user_data.csv                          # Final user data after preprocessing
+│       ├── food_nutrient.csv                            # Nutrient info for each food item
+│       └── nutrient.csv                                 # General nutrient information
+│
+models/
+│   └── ease.py                      # EASE recommendation model
+│
+preprocessing/
+    ├── health_score_calculation.py    # Script to calculate normalized health scores
+    ├── n_clusters.py                  # Generates graph using elbow method to determine cluster number
+    ├── nutrient_data_preprocessing.py # Generates nutrient info for each food item using food_nutrient.csv & nutrient.csv
+    └── preprocessing.py               # Methods to transform the final_user_data.csv
+</pre>
+
+
 ## 🚀 Workflow
 
 ### **Part I: EASE (Personalized Recommendations)**
@@ -11,8 +41,8 @@ The aim of this part is to generate food recommendations that extend beyond the 
 
 1. **Preprocessing**
    - **Extract Meal Descriptions**: From meal descriptions file
-   - **Generate User Data**: Using extracted meal descriptions → Output: `user_data.csv`
-2. **Generate Recommendations**: Using `user_data.csv` → Food IDs for each user
+   - **Generate User Data**: Using extracted meal descriptions → Output: `final_user_data.csv`
+2. **Generate Recommendations**: Using `final_user_data.csv` → Food IDs for each user
 
 ### **Part II: Health Score Calculation**
 1. **Preprocessing**
