@@ -46,7 +46,7 @@ The aim of this part is to generate food recommendations that extend beyond the 
 
 ### **Part II: Health Score Calculation**
 1. **Preprocessing**
-   - **Transform Nutrient Data**: Using `data/raw data/food_nutrients.csv` & `data/raw_data/nutrient.csv` → Output: `data/preprocessed data/food_nutrient_transformed.csv`
+   - **Transform Nutrient Data**: Using `data/raw data/food_nutrients.csv` & `data/raw data/nutrient.csv` → Output: `data/preprocessed data/food_nutrient_transformed.csv`
 2. **Calculate Health Score**: For each food item in `data/preprocessed data/food_nutrient_transformed.csv`
 
 ### **Part III: Clustering and Final Score**
