@@ -13,7 +13,7 @@ main/
 │
 data/
 │   ├── preprocessed data/
-│   │   ├── Final Health Scores No Outliers Linear.csv   # Normalized health scores for each food item
+│   │   ├── Final Health Scores Normalized Linear.csv   # Normalized health scores for each food item
 │   │   ├── food_nutrients_transformed.csv               # After nutrient preprocessing, adding nutrient columns
 │   │   ├── foodClusters.pickle                         # Clusters of similar food items
 │   │   └── foodVectors.pickle                          # Embeddings of food items using BERT
@@ -22,7 +22,7 @@ data/
 │       ├── final_user_data.csv                          # Final user data after preprocessing
 │       ├── food_nutrient.csv                            # Nutrient info for each food item
 │       └── nutrient.csv                                 # General nutrient information
-│
+│       └── food.csv                                 # Food Information
 models/
 │   └── ease.py                      # EASE recommendation model
 │
